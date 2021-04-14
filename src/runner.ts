@@ -12,7 +12,7 @@ import { Notification } from "./notification";
 export class Runner {
     private file: File;
     private arguments: string;
-    private shouldAskForArgs: boolean;
+    private readonly shouldAskForArgs: boolean;
 
     constructor(file: File, shouldAskForArgs = false) {
         this.file = file;

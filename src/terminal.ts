@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-import * as fse from "fs-extra";
 import * as path from "path";
 import * as vscode from "vscode";
 import { outputChannel } from "./output-channel";
@@ -50,30 +49,6 @@ class Terminal implements vscode.Disposable {
     }
 
     // To Refactor: remove from here.
-    public async formattedPathForTerminal(filepath: string): Promise<string> {
-        if (process.platform !== "win32") {
-            return filepath;
-        }
-
-        switch (currentWindowsShell()) {
-            case ShellType.wsl:
-                return await toWslPath(filepath);
-            case ShellType.powerShell: {
-                // On Windows, append .cmd for `path/to/mvn` to prevent popup window
-                // See: https://github.com/microsoft/vscode-maven/pull/494#issuecomment-633869294
-                if (path.extname(filepath) === "") {
-                    const amended = `${filepath}.cmd`;
-                    if (await fse.pathExists(amended)) {
-                        return amended;
-                    }
-                }
-                return filepath;
-            }
-            default:
-                return filepath;
-        }
-    }
-
     public dispose(terminalName?: string): void {
         if (terminalName === undefined) {// If the name is not passed, dispose all.
             Object.keys(this.terminals).forEach((id: string) => {
@@ -161,11 +136,6 @@ export async function toWslPath(filepath: string): Promise<string> {
         return toDefaultWslPath(filepath);
     }
 }
-
-export async function toWinPath(filepath: string): Promise<string> {
-    return (await executeCommand("wsl", ["wslpath", "-w", `"${filepath}"`])).trim();
-}
-
 export function getRunPrefix(): string {
     if (process.platform === "win32") {
         const shell = currentWindowsShell();

@@ -4,10 +4,10 @@ import { isStringNullOrWhiteSpace } from "./string-utils";
 
 export async function commandExists(command: string): Promise<boolean> {
     const result = await lookpath(command);
-    return isStringNullOrWhiteSpace(result) ? true : false;
+    return isStringNullOrWhiteSpace(result);
 }
 
-export async function isProccessRunning(proccess: string): Promise<boolean> {
-    const list = await find("name", proccess, true);
+export async function isProcessRunning(process: string): Promise<boolean> {
+    const list = await find("name", process, true);
     return list.length > 0;
 }

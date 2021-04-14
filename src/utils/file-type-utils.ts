@@ -9,5 +9,5 @@ export function getFileType(extension: string): FileType {
         return FileType.cplusplus;
     }
 
-    return FileType.unkown;
+    return FileType.unknown;
 }

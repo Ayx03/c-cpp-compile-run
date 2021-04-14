@@ -16,8 +16,8 @@ Compile & Run C/C++ opened file directly from the command pallet or by pressing 
 ## Requirements
 
 * If you are on linux you must install gcc ([see instructions](docs/COMPILER_SETUP.md#Linux))
-* If you are on window you must install mingw ([see instructions](docs/COMPILER_SETUP.md#Windows))
-* If you are on mac os you must install clang ([see instructions](docs/COMPILER_SETUP.md#MacOS))
+* If you are on Windows you must install mingw ([see instructions](docs/COMPILER_SETUP.md#Windows))
+* If you are on macOS you must install clang ([see instructions](docs/COMPILER_SETUP.md#MacOS))
 ## How to use
 Make sure you have .c or .cpp file open.
 Press "F6", this will compile and run the file using default arguments in settings.

@@ -2,7 +2,7 @@
 ## Table of Contents
 1. [Windows](#Windows)
 2. [Linux](#Linux)
-3. [MacOS](#MacOs)
+3. [MacOS](#MacOS)
 4. [WSL Example](#WSL)
 
 ### Windows
@@ -44,7 +44,7 @@ Install Mingw-w64 via the SourceForge website. Click [ Mingw-w64](https://source
 ### WSL
 
 - Open the Bash shell for WSL. If you installed an Ubuntu distro, type "Ubuntu" in the Windows search box and then click on it in the result list. For Debian, type "Debian", and so on.
-- The shell appears with a command prompt that by default consists of your user name and computer name, and puts you in your home directory. For Ubuntu it looks like this:
+- The shell appears with a command prompt that by default consists of your username and computer name, and puts you in your home directory. For Ubuntu, it looks like this:
 - Although you will be using VS Code to edit your source code, you'll be compiling the source code on Linux using the gcc or g++ compiler.
 - From the WSL command prompt, first run apt-get update to update the Ubuntu package lists. An out-of-date distro can sometimes interfere with attempts to install new packages.
 

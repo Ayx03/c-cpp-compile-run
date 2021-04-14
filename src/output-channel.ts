@@ -5,27 +5,18 @@ class OutputChannel implements vscode.Disposable {
 
     public appendLine(message: any, title?: string): void {
         if (title) {
-            const simplifiedTime: string = (new Date()).toISOString().replace(/z|t/gi, " ").trim(); // YYYY-MM-DD HH:mm:ss.sss
-            const hightlightingTitle = `[${title} ${simplifiedTime}]`;
-            this.channel.appendLine(hightlightingTitle);
+            const simplifiedTime: string = (new Date()).toISOString().replace(/[zt]/gi, " ").trim(); // YYYY-MM-DD HH:mm:ss.sss
+            const highlightingTitle = `[${title} ${simplifiedTime}]`;
+            this.channel.appendLine(highlightingTitle);
         }
         this.channel.appendLine(message);
     }
-
-    public append(message: any): void {
-        this.channel.append(message);
-    }
-
     public show(): void {
         this.channel.show();
     }
 
     public dispose(): void {
         this.channel.dispose();
-    }
-
-    public clear(): void {
-        this.channel.clear();
     }
 }
 

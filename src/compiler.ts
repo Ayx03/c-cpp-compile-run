@@ -5,7 +5,7 @@ import { FileType } from "./enums/file-type";
 import { File } from "./models/file";
 import { outputChannel } from "./output-channel";
 import { promptCompiler, promptFlags } from "./utils/prompt-utils";
-import { commandExists, isProccessRunning } from "./utils/common-utils";
+import { commandExists, isProcessRunning } from "./utils/common-utils";
 import { Result } from "./enums/result";
 import { isStringNullOrWhiteSpace } from "./utils/string-utils";
 import { Notification } from "./notification";
@@ -14,7 +14,7 @@ export class Compiler {
     private file: File;
     private compiler?: string;
     private inputFlags?: string;
-    private shouldAskForInputFlags: boolean;
+    private readonly shouldAskForInputFlags: boolean;
 
     constructor(file: File, shouldAskForInputFlags: boolean = false) {
         this.file = file;
@@ -31,13 +31,13 @@ export class Compiler {
             await window.activeTextEditor?.document.save();
         }
 
-        if (await isProccessRunning(this.file.executable)) {
-            Notification.showErrorMessage(`${this.file.executable} is already runing! Please close it first to compile successfully!`);
+        if (await isProcessRunning(this.file.executable)) {
+            Notification.showErrorMessage(`${this.file.executable} is already running! Please close it first to compile successfully!`);
 
             return Result.error;
         }
 
-        if (!this.isCompilerValid(this.compiler)) {
+        if (!await this.isCompilerValid(this.compiler)) {
             await this.compilerNotFound();
 
             return Result.error;
@@ -55,13 +55,13 @@ export class Compiler {
             compilerArgs = compilerArgs.concat(this.inputFlags.split(" "));
         }
 
-        const proccess = spawnSync(`"${this.compiler}"`, compilerArgs, { cwd: this.file.directory, shell: true, encoding: "utf-8" });
+        const process = spawnSync(`"${this.compiler}"`, compilerArgs, { cwd: this.file.directory, shell: true, encoding: "utf-8" });
 
-        if (proccess.output.length > 0) {
-            outputChannel.appendLine(proccess.output.toLocaleString(), this.file.name);
+        if (process.output.length > 0) {
+            outputChannel.appendLine(process.output.toLocaleString(), this.file.name);
         }
 
-        if (proccess.status === 0) {
+        if (process.status === 0) {
             Notification.showInformationMessage("Compiled successfully!");
         } else {
             outputChannel.show();

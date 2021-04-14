@@ -37,11 +37,6 @@ export class Configuration {
     static shouldShowNotifications(): boolean {
         return this.getSetting<boolean>("should-show-notifications") ?? true;
     }
-
-    static defaultWindowsShell(): string {
-        return workspace.getConfiguration("terminal").get<string>("integrated.shell.windows")?.trim();
-    }
-
     static linuxTerminal(): string {
         return workspace.getConfiguration().get<string>("terminal.external.linuxExec");
     }
